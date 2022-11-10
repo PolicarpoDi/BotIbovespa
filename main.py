@@ -11,15 +11,18 @@ driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 # Direciona para abrir o site 
 driver.get("https://economia.uol.com.br/cotacoes/bolsas/")
 
-input_busca = driver.find_element(By.ID, 'filled-normal')
-input_busca.send_keys('PETR3.SA')
-time.sleep(2)
-input_busca.send_keys(Keys.ENTER)
-time.sleep(2)
+lista_acoes = ['B3SA3', 'KLBN4', 'ABEV3', 'BBAS3', 'EGIE3', 'ITSA4', 'PETR3', 'PETR4', 'VALE3', 'TAEE11', 'WEGE3', 'EMBR3']
 
-span_valor = driver.find_element(By.XPATH, '//span[@class="chart-info-val ng-binding"]')
-valor = span_valor.text
-print(f'Valor da contação da PETR3 é atualmente R${valor}')
+for acao in lista_acoes:
+    input_busca = driver.find_element(By.ID, 'filled-normal')
+    input_busca.send_keys(acao)
+    time.sleep(2)
+    input_busca.send_keys(Keys.ENTER)
+    time.sleep(2)
+
+    span_valor = driver.find_element(By.XPATH, '//span[@class="chart-info-val ng-binding"]')
+    valor = span_valor.text
+    print(f'Valor da contação da {acao} é atualmente R${valor}')
 
 # Para o navegador não fechar
 input('')
